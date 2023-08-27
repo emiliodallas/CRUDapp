@@ -1,0 +1,54 @@
+version: '3'
+services:
+  flaskserver:
+    container_name: flaskServer
+    build:
+      context: ./flaskServer
+      dockerfile: Dockerfile
+    volumes:
+      - myvolume:/app/Shared
+    networks:
+      - mynetwork
+    ports:
+      - 5000:5000
+    
+  streamlit:
+    container_name: frontStreamlit
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - myvolume:/app/Shared
+    networks:
+      - mynetwork
+    ports:
+      - 8501:8501
+
+  postgres:
+    container_name: postgresql
+    image: postgres
+    restart: always
+    networks:
+      - mynetwork
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword
+    
+  sql: 
+    container_name: schema
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    restart: on-failure      
+    volumes:
+      - myvolume:/app/Shared
+    networks:
+      - mynetwork
+
+volumes:
+  myvolume:
+
+networks:
+  mynetwork:
