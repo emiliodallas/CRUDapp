@@ -37,7 +37,8 @@ class DatabaseManager:
         create_schema_query = f"CREATE SCHEMA IF NOT EXISTS {schema_name};"
         self.execute_query(create_schema_query)
 
-    def create_table(self,schema_name):
+    def create_table(self, schema_name):
+        # Create a table if it doesn't exist
         create_table_query = f"""
             CREATE TABLE IF NOT EXISTS {schema_name}.products (
                 id SERIAL PRIMARY KEY NOT NULL,
@@ -50,6 +51,7 @@ class DatabaseManager:
         """
         self.execute_query(create_table_query)
 
+# Create a DatabaseManager instance
 data_manager = DatabaseManager(
     dbname="postgres",
     user="postgres",
@@ -61,7 +63,8 @@ schema_name = 'CRUD'
 
 data_manager.connect()  # Connect to the database
 
-data_manager.create_schema(schema_name)
-data_manager.create_table(schema_name)
+data_manager.create_schema(schema_name)  # Create schema
 
-data_manager.disconnect()  # Disconnect to the database
+data_manager.create_table(schema_name)  # Create table
+
+data_manager.disconnect()  # Disconnect from the database
