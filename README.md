@@ -42,7 +42,7 @@ E simplesmente digitar:
 docker compose up -d
 ```
 
-Sendo necessário também abrir a URL no navegador:
+Assim, ele irá puxar as imagens diretamente do DockerHub e iniciar os containers. É necessário também abrir a URL no navegador:
 
 ```
 http://0.0.0.0:8501
