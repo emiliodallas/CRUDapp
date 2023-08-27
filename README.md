@@ -32,12 +32,18 @@ Este comando irá abrir uma interface utilizando Streamlit para adicionar, ler, 
 
 Outra maneira é puxando diretamente as imagens do DockerHub. Para isso, basta ir até o diretório _images_:
 
-```cd images```
+```
+cd images
+```
 
 E simplesmente digitar:
 
-```docker compose up -d```
+```
+docker compose up -d
+```
 
 Sendo necessário também abrir a URL no navegador:
 
-```http://0.0.0.0:8501```
+```
+http://0.0.0.0:8501
+```
