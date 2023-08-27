@@ -13,7 +13,7 @@ Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as 
     ```
 
 
-Foi utilizado o banco de dados PostgreSQL puxando diretamente sua imagem do DockerHub. As configuracoes padroes utilizadas foram:
+Foi utilizado o banco de dados PostgreSQL puxando diretamente sua imagem do DockerHub. As configuracoes padrões utilizadas foram:
 
 - Nome do banco de dados: `postgres`
 - Usuário: `postgres`
@@ -21,7 +21,7 @@ Foi utilizado o banco de dados PostgreSQL puxando diretamente sua imagem do Dock
 - Host: `postgres`
 
 
-3. Como estamos rodando o container em modo _detached_ e necessario abrir algum navegador e digitar a URL:
+3. Como estamos rodando o container em modo _detached_ é necessario abrir algum navegador e digitar a URL:
 
     ```    
     http://0.0.0.0:8501
