@@ -1,4 +1,6 @@
 import psycopg2
+from dotenv import load_dotenv
+import os
 
 class DatabaseManager:
     def __init__(self, dbname, user, password, host):
@@ -52,11 +54,14 @@ class DatabaseManager:
         self.execute_query(create_table_query)
 
 # Create a DatabaseManager instance
+
+load_dotenv()
+
 data_manager = DatabaseManager(
-    dbname="postgres",
-    user="postgres",
-    password="mysecretpassword",
-    host="postgres"
+    dbname=os.getenv('dbname'),
+    user=os.getenv('user'),
+    password=os.getenv('password'),
+    host=os.getenv('host')
 )
 
 schema_name = 'CRUD'

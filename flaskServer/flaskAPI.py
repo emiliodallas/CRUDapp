@@ -1,19 +1,24 @@
 from flask import Flask, request, jsonify  # Import necessary modules
+from dotenv import load_dotenv
 import psycopg2
+import os
+
+
+load_dotenv()
 
 # Database connection details
 db_params = {
-    "dbname": "postgres",
-    "user": "postgres",
-    "password": "mysecretpassword",
-    "host": "postgres"
+    'dbname':os.getenv('dbname'),
+    'user':os.getenv('user'),
+    'password':os.getenv('password'),
+    'host':os.getenv('host')
 }
 
 app = Flask(__name__)  # Create a Flask app instance
 
 # Define a route to create a new product
 @app.route('/products', methods=['POST'])
-def create_product():
+def createProduct_page():
     data = request.json
     connection = None  # Initialize connection outside the try block
     try:
@@ -41,7 +46,7 @@ def create_product():
 
 # Define a route to get product details by ID
 @app.route('/products/<product_id>', methods=['GET'])
-def get_product(product_id):
+def readProduct_page(product_id):
     connection = None  # Initialize connection outside the try block
     try:
         connection = psycopg2.connect(**db_params)  # Establish a database connection
@@ -66,7 +71,7 @@ def get_product(product_id):
 
 # Define a route to update product details by ID
 @app.route('/products/<product_id>', methods=['PUT'])
-def update_product(product_id):
+def updateProduct_page(product_id):
     data = request.json
     connection = None  # Initialize connection outside the try block
     try:
@@ -86,7 +91,7 @@ def update_product(product_id):
 
 # Define a route to delete a product by ID
 @app.route('/products/<product_id>', methods=['DELETE'])
-def delete_product(product_id):
+def deleteProduct_page(product_id):
     connection = None  # Initialize connection outside the try block
     try:
         connection = psycopg2.connect(**db_params)  # Establish a database connection

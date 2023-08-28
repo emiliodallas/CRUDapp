@@ -10,4 +10,4 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 8501
 
-CMD ["streamlit", "run", "--server.port=8501", "--server.address=0.0.0.0", "front.py"]
+CMD ["streamlit", "run", "--server.port=8501", "--server.address=0.0.0.0", "frontendCRUD_product.py"]

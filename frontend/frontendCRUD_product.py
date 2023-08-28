@@ -9,7 +9,7 @@ st.set_page_config(page_title="Simple CRUD App", page_icon="📝")
 base_url = "http://flaskserver:5000"
 
 # Function to create a new product
-def create_page():
+def newProduct():
     st.title("Create Product")
     product_id = st.text_input("Product ID:")
     product_name = st.text_input("Product Name:")
@@ -32,7 +32,7 @@ def create_page():
             st.write(response.json())
 
 # Function to read a product
-def read_page():
+def readProduct():
     st.title("Read Product")
     product_id = st.text_input("Product Id:")
     if st.button("Read"):
@@ -41,7 +41,7 @@ def read_page():
             st.write(response.json())
 
 # Function to update a product
-def update_page():
+def updateProduct():
     st.title("Update Product")
     product_code = st.text_input("Product Code:")
     product_price = st.text_input("New Product Price:")
@@ -57,7 +57,7 @@ def update_page():
             st.write(response.json())
 
 # Function to delete a product
-def delete_page():
+def deleteProduct():
     st.title("Delete Product")
     product_id = st.text_input("Product Id to Delete:")
     
@@ -72,13 +72,13 @@ def main():
     selected_operation = st.sidebar.radio("Select Operation", ["Create", "Read", "Update", "Delete"])
 
     if selected_operation == "Create":
-        create_page()
+        newProduct()
     elif selected_operation == "Read":
-        read_page()
+        readProduct()
     elif selected_operation == "Update":
-        update_page()
+        updateProduct()
     elif selected_operation == "Delete":
-        delete_page()
+        deleteProduct()
 
 if __name__ == "__main__":
     main()
