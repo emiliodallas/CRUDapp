@@ -33,19 +33,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
-    
-  sql: 
-    container_name: schema
-    build:
-      context: ./database
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    restart: on-failure      
-    volumes:
-      - myvolume:/app/Shared
-    networks:
-      - mynetwork
 
 volumes:
   myvolume:

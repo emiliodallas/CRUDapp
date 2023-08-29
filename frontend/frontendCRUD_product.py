@@ -22,9 +22,9 @@ def newProduct():
             current_date = datetime.now().strftime("%Y-%m-%d")
             data = {
                 "id": product_id, 
-                "date": current_date,
-                "name": product_name,
                 "code": product_code,
+                "name": product_name,
+                "date": current_date,
                 "price": price,
                 "discount": discount
             }
