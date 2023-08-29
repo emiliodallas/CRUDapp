@@ -11,6 +11,7 @@ services:
       - mynetwork
     ports:
       - 5000:5000
+    restart: on-failure
     
   streamlit:
     container_name: frontStreamlit
