@@ -1,5 +1,4 @@
 psycopg2-binary
 flask
-streamlit
 python-dotenv
 sqlalchemy

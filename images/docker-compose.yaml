@@ -2,17 +2,19 @@ version: '3'
 services:
   flaskserver:
     container_name: flaskServer
-    image: emiliodallas/flaskserver:flaskHilab  # Update this with your Flask app image details
+    image: emiliodallas/flaskserver:flaskHilab
     volumes:
       - myvolume:/app/Shared
     networks:
       - mynetwork
     ports:
       - 5000:5000
+    restart: on-failure      
+
     
   streamlit:
     container_name: frontStreamlit
-    image: emiliodallas/flaskserver:streamlitHilab  # Update this with your Streamlit app image details
+    image: emiliodallas/flaskserver:streamlitHilab
     volumes:
       - myvolume:/app/Shared
     networks:
@@ -22,24 +24,13 @@ services:
 
   postgres:
     container_name: postgresql
-    image: postgres:latest  # Using the official PostgreSQL image
+    image: postgres:latest
     restart: always
     networks:
       - mynetwork
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
-    
-  sql: 
-    container_name: schema
-    image: emiliodallas/flaskserver:databaseHilab  # Update this with your database schema image details
-    depends_on:
-      - postgres
-    restart: on-failure      
-    volumes:
-      - myvolume:/app/Shared
-    networks:
-      - mynetwork
 
 volumes:
   myvolume:
