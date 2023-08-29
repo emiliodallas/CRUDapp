@@ -1,11 +1,30 @@
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import String
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import mapped_column
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+class Base(DeclarativeBase):
+    pass
 
-app = Flask(__name__)
+class Product(Base):
+    __tablename__ = 'products'
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code : Mapped[int]
+    name: Mapped[str] = mapped_column(String(30))
+    date : Mapped[str]
+    price : Mapped[float]
+    discount : Mapped[float]
+
+    def __repr__(self) -> str:
+        return f"User(id={self.id!r}, code={self.code!r}, name={self.name!r})"
+
+load_dotenv()
 
 dbname = os.getenv('dbname')
 user=os.getenv('user')
@@ -14,87 +33,75 @@ host =os.getenv('host')
 port = os.getenv('port')
 
 # Configure the database connection
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{user}:{password}@{host}:{port}/{dbname}'
-db = SQLAlchemy(app)
+db_url = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
+engine = create_engine(db_url, echo=True)
 
-class Product(db.Model):
-    __tablename__ = 'products'
+# Create products table according to schema on Product class
+Base.metadata.create_all(engine)
 
-    id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.String)
-    name = db.Column(db.String)
-    code = db.Column(db.String)
-    price = db.Column(db.Float)
-    discount = db.Column(db.Float)
+#Open query session
+session = Session(engine)
 
+app = Flask(__name__)
 @app.route('/products', methods=['POST'])
 def create_product():
     data = request.json
     try:
         new_product = Product(
-            id=data['id'], date=data['date'], name=data['name'],
-            code=data['code'], price=data['price'], discount=data['discount']
+            id=data['id'], code=data['code'], name=data['name'],
+            date=data['date'], price=data['price'], discount=data['discount']
         )
-        db.session.add(new_product)
-        db.session.commit()
+        session.add(new_product)
+        session.commit()
         return jsonify({'message': 'Product created successfully'})
     except:
-        db.session.rollback()
-        return jsonify({'error': 'An error occurred while inserting data'})
-    finally:
-        db.session.close()
+        raise Exception('An error occurred while inserting data')
 
 @app.route('/products/<product_id>', methods=['GET'])
 def read_product(product_id):
     try:
-        product = Product.query.get(product_id)
+        product = session.get(Product, product_id)
         if product:
             return jsonify({
                 'id': product.id,
-                'date': product.date,
-                'name': product.name,
                 'code': product.code,
+                'name': product.name,
                 'price': product.price,
-                'discount': product.discount
+                'discount': product.discount,
+                'date': product.date
             })
         else:
             return jsonify({'message': 'Product not found'}), 404
     except:
-        return jsonify({'error': 'An error occurred while fetching data'})
-
+        raise Exception('An error occurred while fetching data')
+    
 @app.route('/products/<product_id>', methods=['PUT'])
 def update_product(product_id):
     data = request.json
     try:
-        product = Product.query.get(product_id)
+        product = session.get(Product, product_id)
         if product:
             product.price = data['price']
             product.discount = data['discount']
-            db.session.commit()
+            session.commit()
             return jsonify({'message': 'Product updated successfully'})
         else:
             return jsonify({'message': 'Product not found'}), 404
     except:
-        db.session.rollback()
-        return jsonify({'error': 'An error occurred while updating data'})
-    finally:
-        db.session.close()
+        raise Exception('An error occurred while updating data')
 
 @app.route('/products/<product_id>', methods=['DELETE'])
 def delete_product(product_id):
     try:
-        product = Product.query.get(product_id)
+        product = session.get(Product, product_id)
         if product:
-            db.session.delete(product)
-            db.session.commit()
+            session.delete(product)
+            session.commit()
             return jsonify({'message': 'Product deleted successfully'})
         else:
             return jsonify({'message': 'Product not found'}), 404
     except:
-        db.session.rollback()
-        return jsonify({'error': 'An error occurred while deleting data'})
-    finally:
-        db.session.close()
-
+        raise Exception('An error occurred while deleting data')
+    
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
