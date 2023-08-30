@@ -9,6 +9,8 @@ services:
       - myvolume:/app/Shared
     networks:
       - mynetwork
+    depends_on:
+      - postgres
     ports:
       - 5000:5000
     restart: on-failure

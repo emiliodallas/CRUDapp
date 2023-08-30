@@ -34,7 +34,7 @@ port = os.getenv('port')
 
 # Configure the database connection
 db_url = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
-engine = create_engine(db_url, echo=True)
+engine = create_engine(db_url)
 
 # Create products table according to schema on Product class
 Base.metadata.create_all(engine)
