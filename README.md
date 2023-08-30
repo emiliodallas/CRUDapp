@@ -34,20 +34,33 @@ Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as 
     http://0.0.0.0:8501
     ```
 
-Este comando irá abrir uma interface utilizando Streamlit para adicionar, ler, atualizar ou deletar entradas no banco de dados.
+    Este comando irá abrir uma interface utilizando Streamlit para adicionar, ler, atualizar ou deletar entradas no banco de dados.
 
 
-Outra maneira é puxando diretamente as imagens do DockerHub. Para isso, basta clonar o respositorio e ir até o diretório _images_:
-
+6. Outra maneira é puxando diretamente as imagens do DockerHub. Para isso, basta clonar o respositorio e ir até o diretório _images_:
+    ```
     cd images
+    ```
+7. Aqui se faz necessária uma pequena configuração. Abra o arquivo docker-compose.yaml. No serviço flaskserver é necessário atualizar os parâmetros de ambiente. Isso é feito nas linhas:
 
-E simplesmente digitar:
+    ```
+    POSTGRES_USER: your-user
+    POSTGRES_PASSWORD: your-password
+    POSTGRES_HOST: your-host
+    POSTGRES_DATABASE: your-database
+    POSTGRES_PORT: your-port
+    ```
+    É necessário apenas inserir os parâmetros de configuração de conexão do banco de dados (PostgreSQL). Podem ser utilizados os valores default, conforme documentação.
 
-    
+7. Entao, simplesmente digitar:
+
+    ```
     docker compose up -d
-    
+    ```
 
-Assim, ele irá puxar as imagens diretamente do DockerHub e iniciar os containers. É necessário também abrir a URL no navegador:
+    Assim, ele irá puxar as imagens diretamente do DockerHub e iniciar os containers. 
+
+8. É necessário também abrir a URL no navegador:
 
 
     http://0.0.0.0:8501
