@@ -2,12 +2,12 @@
 
 Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as etapas abaixo para executá-lo:
 
-1. Para rodar o codigo, é possivel clocar o respositorio com 
+1. Para rodar o codigo, é possivel clonar o respositorio com 
     ```
     git clone https://github.com/emiliodallas/CRUDapp
     ```
 
-2. Em seguida, e necessario adicionar um arquivo `.env` dentro da pasta _flaskServer_ com as credenciais no seguinte modelo:
+2. Em seguida, é necessario adicionar um arquivo `.env` dentro da pasta _flaskServer_ com as credenciais no seguinte modelo:
     ```
     dbname = 'nome_db'
     user='nome_usuario'
@@ -16,7 +16,7 @@ Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as 
     port = 'porta'
     ```
 
-    Caso esteja utilizando um container novo do postgreSQL, pode-se usar as credenciais padrao. Caso esteja utilizando um que ja foi configurado, utilize essas credenciais.
+    Caso esteja utilizando um container novo do postgreSQL, pode-se usar as credenciais padrão. Caso esteja utilizando um que já foi configurado, utilize essas credenciais.
 
 3. Para rodar os containers, use: 
     ```
