@@ -26,11 +26,11 @@ class Product(Base):
 
 load_dotenv()
 
-dbname = os.getenv('dbname')
-user=os.getenv('user')
-password=os.getenv('password')
-host =os.getenv('host')
-port = os.getenv('port')
+dbname = os.getenv('POSTGRES_DATABASE')
+user=os.getenv('POSTGRES_USER')
+password=os.getenv('POSTGRES_PASSWORD')
+host =os.getenv('POSTGRES_HOST')
+port = os.getenv('POSTGRES_PORT')
 
 # Configure the database connection
 db_url = f'postgresql+psycopg2://{user}:{password}@{host}:{port}/{dbname}'
