@@ -2,7 +2,7 @@ version: '3'
 services:
   flaskserver:
     container_name: flaskServer
-    image: emiliodallas/flaskserver:flaskHilab
+    image: emiliodallas/crud-flaskserver:latest
     volumes:
       - myvolume:/app/Shared
     networks:
@@ -17,8 +17,7 @@ services:
       POSTGRES_PASSWORD: your-password
       POSTGRES_HOST: your-host
       POSTGRES_DATABASE: your-database
-      POSTGRES_PORT: your-port    
-
+      POSTGRES_PORT: your-port
     
   streamlit:
     container_name: frontStreamlit
