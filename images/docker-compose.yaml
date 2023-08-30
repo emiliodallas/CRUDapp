@@ -7,9 +7,17 @@ services:
       - myvolume:/app/Shared
     networks:
       - mynetwork
+    depends_on:
+      - postgres
     ports:
       - 5000:5000
-    restart: on-failure      
+    restart: on-failure  
+    environment:
+      POSTGRES_USER: your-user
+      POSTGRES_PASSWORD: your-password
+      POSTGRES_HOST: your-host
+      POSTGRES_DATABASE: your-database
+      POSTGRES_PORT: your-port    
 
     
   streamlit:
@@ -21,6 +29,8 @@ services:
       - mynetwork
     ports:
       - 8501:8501
+    depends_on:
+      - postgres
 
   postgres:
     container_name: postgresql
