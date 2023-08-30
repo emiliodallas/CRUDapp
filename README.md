@@ -41,7 +41,7 @@ Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as 
     ```
     cd images
     ```
-7. Aqui se faz necessária uma pequena configuração. Abra o arquivo docker-compose.yaml. No serviço flaskserver é necessário atualizar os parâmetros de ambiente. Isso é feito nas linhas:
+7. Aqui se faz necessária uma pequena configuração. Abra o arquivo docker-compose.yaml. No serviço `flaskserver` é necessário atualizar os parâmetros de ambiente. Isso é feito nas linhas:
 
     ```
     POSTGRES_USER: your-user
@@ -50,7 +50,7 @@ Este código foi escrito em Python 3.10 para solucionar o exercício 1. Siga as 
     POSTGRES_DATABASE: your-database
     POSTGRES_PORT: your-port
     ```
-    É necessário apenas inserir os parâmetros de configuração de conexão do banco de dados (PostgreSQL). Podem ser utilizados os valores default, conforme documentação.
+    É necessário apenas alterar os parâmetros para configuração de conexão com o banco de dados (PostgreSQL). Podem ser utilizados os valores default, conforme documentação.
 
 7. Entao, simplesmente digitar:
 
